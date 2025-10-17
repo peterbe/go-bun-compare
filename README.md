@@ -18,7 +18,6 @@ In another terminal:
 ```bash
 just benchmark-low-concurrency
 just benchmark
-just benchmark-high-concurrency
 ```
 
 ## Test Bun
@@ -34,7 +33,6 @@ In another terminal:
 ```bash
 just benchmark-low-concurrency
 just benchmark
-just benchmark-high-concurrency
 ```
 
 ## My current results
@@ -56,3 +54,30 @@ using `go version go1.25.3 darwin/arm64` and Bun `1.3.0`
 
 When you compile the `run.go` you get 7.1M file called `run`.
 When you compile the `index.ts` you get a 58M file called `bun-run`.
+
+## Bonus - Python
+
+### Starlette and Flask
+
+Starlette run by `uvicorn` and Flask run by `gunicorn` (with 8 workers) and `gevent`.
+
+```bash
+just starlette-run
+```
+
+and
+
+```bash
+just flask-run
+```
+
+### Current benchmarks
+
+```bash
+just benchmark
+```
+
+...yields...
+
+- Starlette: 15896.2157 requests/sec
+- Flask: 9564.5005 requests/sec
