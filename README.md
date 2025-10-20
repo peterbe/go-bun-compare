@@ -98,3 +98,26 @@ just benchmark
 
 - Starlette: 15896.2157 requests/sec
 - Flask: 9564.5005 requests/sec
+
+## Note-to-self; measuring memory use on macOS
+
+I'm not sure if I this the best way to do it but here's how I measured peak memory usage:
+
+1. Start the server. E.g. `just bun-start`
+1. Use `ps aux | rg bun` to look for the executable `./bun-run` 's PID.
+   Might look like this:
+
+   ```text
+   peterbengtsson   90845   0.0  0.0 483810288  21296 s005  S+   10:08AM   0:00.02 ./bun-run
+   ```
+
+1. Start `top` for that PID. E.g. `top -pid 90845`
+1. Run the benchmark in a different terminal and watch the `top` output in the other.
+   Might look something like this:
+
+   ```text
+   PID    COMMAND      %CPU TIME     #TH  #WQ  #POR MEM    PURG CMPR PGRP  PPID  STATE    BOOSTS    %CPU_ME %CPU_OTHRS UID  FAULT COW  MSGSE MSGRE SYSBSD  SYSMA CSW   PAGE IDLE POWE INSTRS     CYCLES     JETP
+   90845  bun-run      0.0  00:01.19 6    0    28   9441K- 0B   0B   90823 90823 sleeping *0[1]     0.00000 0.00000    502  2305  142  4303+ 2140+ 248134+ 7459+ 5141+ 54   4    0.0  472550     754777     180
+   ```
+
+
