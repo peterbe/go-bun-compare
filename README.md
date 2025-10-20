@@ -45,15 +45,32 @@ using `go version go1.25.3 darwin/arm64` and Bun `1.3.0`
 - low concurrency: 67522.5031 requests/sec
 - medium concurrency: 67998.6526 requests/sec
 
+Memory peak: 7264K
+
 ### Bun
 
 - low concurrency: 77118.8624 requests/sec
 - medium concurrency: 76791.7434 requests/sec
 
+Memory peak: 9921K
+
 ## File size
 
 When you compile the `run.go` you get 7.1M file called `run`.
 When you compile the `index.ts` you get a 58M file called `bun-run`.
+
+## Conclusion(?)
+
+Hello World server apps are almost pointless because they're so unrealistic in that it deals with no I/O, at all.
+And raw speed isn't particularly useful.
+
+What matters though is that the server isn't slowing you down in a chain of a bunch of
+other services. The raw performance, without the I/O should be good enough.
+
+Something this limited benchmark concludes that, if you like TypeScript, you don't need a statically
+compiled language like Go to make a light web server. With Bun, it's fast enough. And in terms of
+memory, it's *not* a hog.
+
 
 ## Bonus - Python
 
