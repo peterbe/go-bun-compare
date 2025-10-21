@@ -71,6 +71,27 @@ Something this limited benchmark concludes that, if you like TypeScript, you don
 compiled language like Go to make a light web server. With Bun, it's fast enough. And in terms of
 memory, it's *not* a hog.
 
+## Bonus - Compiled vs not compiled
+
+In the above-mentioned benchmark, it creates a single executable binary, that is then started
+and benchmark run against. What if you don't bother? Does it make a difference to the raw
+performance?
+
+### `bun run index.ts` vs. `./bun-run`
+
+- `bun run index.ts` - 81811.8460 requests/sec
+- `./bun-run` - 84457.0669 requests/sec
+
+Ran it a bunch of times, back and forth, and noticed that numbers settled.
+*Conclusion:* the executable binary runs ~3% faster.
+
+### `go run run.go` vs. `./run`
+
+- `go run run.go` - 67251.3725 requests/sec
+- `./run` - 67702.8723 requests/sec
+
+Ran it a bunch of times, back and forth, and noticed that numbers settled.
+*Conclusion:* the executable binary runs no faster.
 
 ## Bonus - Python
 
