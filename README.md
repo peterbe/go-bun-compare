@@ -141,4 +141,42 @@ I'm not sure if I this the best way to do it but here's how I measured peak memo
    90845  bun-run      0.0  00:01.19 6    0    28   9441K- 0B   0B   90823 90823 sleeping *0[1]     0.00000 0.00000    502  2305  142  4303+ 2140+ 248134+ 7459+ 5141+ 54   4    0.0  472550     754777     180
    ```
 
+## Bonus - minimal disk I/O reading
 
+Consider this change to the TypeScript code:
+
+```diff
+ Bun.serve({
+   port: 3000,
+-  fetch(_) {
+-    return new Response("Hello world (bun)!");
++  async fetch(_) {
++    const jsonData = await Bun.file("data.json").text();
++    return new Response(jsonData, {headers: {'content-type': "application/json"}});
+   },
+ });
+ ```
+
+ I.e. on every request it reads the file `data.json` and returns an `application/json` content-type.
+
+ And for the Go version, we do:
+
+ ```go
+ jsonData, err = os.ReadFile("data.json")
+ ```
+
+ on every request.
+
+ When you benchmark these two versions the results become:
+
+### Go (with disk I/O)
+
+- low concurrency: 61559.9949 requests/sec
+- medium concurrency: 62050.8071 requests/sec
+
+### Bun (with disk I/O)
+
+- low concurrency: 55621.6681 requests/sec
+- medium concurrency: 58711.0603 requests/sec
+
+Slight "win" for Go here. But conclusion is that they're both still fast enough.
