@@ -180,3 +180,20 @@ Consider this change to the TypeScript code:
 - medium concurrency: 58711.0603 requests/sec
 
 Slight "win" for Go here. But conclusion is that they're both still fast enough.
+
+## Bonus - Node using fastify
+
+[Fastify](https://fastify.dev/benchmarks/) has a nice API and is supposedly fast.
+
+To test, run:
+
+```bash
+just node-start
+```
+
+- low concurrency: 64806.9030 requests/sec
+- medium concurrency: 64955.1367 requests/sec
+
+Memory peak: 71M+
+
+Its numbers are about the same as the Go `fasthttp` server.

@@ -20,6 +20,10 @@ bun-build:
 bun-start: bun-build
     ./bun-run
 
+node-start:
+    cd fastify && npm install
+    cd fastify && npm run run
+
 benchmark:
     oha -n 100000 -c 100 http://localhost:3000/
 
